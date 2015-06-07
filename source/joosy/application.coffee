@@ -35,6 +35,8 @@ class Joosy.Application
     if @initialized
       throw new Error 'Attempted to initialize Application twice'
 
+    console.log 'joosy.app.init'
+
     @config = {}
 
     Joosy.Module.merge @config, @defaultConfig, true, true
