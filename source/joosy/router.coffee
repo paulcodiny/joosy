@@ -130,7 +130,7 @@ class Joosy.Router extends Joosy.Module
   #
   # Inits the routing system and loads the current route
   #
-  @setup: (@config, @responder, respond=true) ->
+  @setup: (@config, @responder) ->
     # Fallback to hashchange if we are unlucky
     # enough to work in IE...
     unless history.pushState
@@ -171,7 +171,7 @@ class Joosy.Router extends Joosy.Module
         else
           @respond @canonizeLocation()
 
-    @respond @canonizeLocation() if respond
+    @respond @canonizeLocation() if @config.first_respond
 
   #
   # Clears current map of routes and deactivates bindings
@@ -221,7 +221,7 @@ class Joosy.Router extends Joosy.Module
       if @config.prefix && !path.match(RegExp("^#?/?#{@config.prefix}(/|$)"))
         path = path.replace /^\#?\/?/, "#{@config.prefix}/"
 
-      unless respond
+      if !respond && location.hash != path
         @__skipHashChange ?= 0
         @__skipHashChange += 1
 
