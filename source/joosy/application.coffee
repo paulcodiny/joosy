@@ -23,6 +23,7 @@ class Joosy.Application
       html5:  false
       base:   ''
       prefix: ''
+      first_respond: true
 
   #
   # Starts Joosy application by binding to element and bootstraping routes
