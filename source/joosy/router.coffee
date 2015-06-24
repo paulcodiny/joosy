@@ -217,9 +217,12 @@ class Joosy.Router extends Joosy.Module
 
       @trigger('pushstate') if respond
     else
-      # remove prefix
+      # add prefix if necessary
       if @config.prefix && !path.match(RegExp("^#?/?#{@config.prefix}(/|$)"))
         path = path.replace /^\#?\/?/, "#{@config.prefix}/"
+
+      # remove all before "#"
+      path = path.substr(path.indexOf('#')) if path.indexOf('#') != -1
 
       if !respond && location.hash != path
         @__skipHashChange ?= 0
